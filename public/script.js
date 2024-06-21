@@ -19,7 +19,7 @@ navigator.mediaDevices.getUserMedia({
 })
 function videostreaming(video,streamingdata){
     video.srcObject=streamingdata
-    video.addEventListener("loadedmedia",()=>{
+    video.addEventListener("loadedmetadata",()=>{
         video.play()
         $("#video_grid").append(video)
     })
