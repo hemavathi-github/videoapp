@@ -7,24 +7,30 @@ var peer = new Peer(undefined, {
 });
 
 const user = prompt("Enter your name");
-const myvideo=document.createElement("video")
-myvideo.muted=true
 
-var mystream
-navigator.mediaDevices.getUserMedia({
-    audi:true,video:true
-}).then((streamingdata)=>{
-    mystream=streamingdata
-    videostreaming(myvideo,streamingdata)
-})
-function videostreaming(video,streamingdata){
-    video.srcObject=streamingdata
-    video.addEventListener("loadedmedia",()=>{
-        video.play()
-        $("#video_grid").append(video)
+const myVideo = document.createElement("video");
+myVideo.muted = true;
+
+let myStream;
+
+navigator.mediaDevices
+    .getUserMedia({
+        audio: true,
+        video: true,
+    })
+    .then((stream) => {
+        myStream = stream;
+        addVideoStream(myVideo, stream);
     })
 
-}
+function addVideoStream(video, stream) {
+    video.srcObject = stream;
+    video.addEventListener("loadedmetadata", () => {
+        video.play();
+        $("#video_grid").append(video)
+    });
+};
+
 $(function () {
     $("#show_chat").click(function () {
         $(".left-window").css("display", "none")
